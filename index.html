@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IELTS Monster Bash</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <h1>IELTS Monster Bash 👾</h1>
+
+  <div id="app">
+
+    <aside id="sidebar">
+      <h2>已背单词</h2>
+      <ul id="learned-list"></ul>
+    </aside>
+
+    <main id="game-panel">
+      <div id="monster">
+        <div id="score">⭐ Score: 0</div>
+        <div id="combo">🔥 Combo: 0</div>
+        <div id="current-word">facilitate</div>
+        <div id="meaning">促进；使容易</div>
+      </div>
+
+      <input type="text" placeholder="Type the word here">
+
+      <div id="tools">
+        <textarea id="word-import" placeholder="输入单词，必须使用格式：
+英文单词,词性,中文释义
+例如：
+facilitate,v.,促进；使容易
+academic,adj.,学术的
+evidence,n.,证据"></textarea>
+
+        <button id="import-btn">导入单词</button>
+        <button id="export-btn">导出学习数据</button>
+      </div>
+    </main>
+
+    <aside id="todo-sidebar">
+      <h2>待背单词</h2>
+      <ul id="todo-list"></ul>
+    </aside>
+
+  </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
