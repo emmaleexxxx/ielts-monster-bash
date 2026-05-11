@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,24 +9,32 @@
 
 <body>
 
-  <h1>IELTS Monster Bash 👾</h1>
+  <header class="top-header">
+    <div>
+      <h1>IELTS Monster Bash</h1>
+      <p>打败可爱怪兽，收集你的雅思单词星球 ✨</p>
+    </div>
+
+    <div class="player-card">
+      <div class="avatar">👩🏻‍🏫</div>
+      <div>
+        <strong>Yuchun</strong>
+        <span>IELTS Explorer Lv.1</span>
+      </div>
+    </div>
+  </header>
 
   <div id="app">
 
-    <aside id="sidebar">
-      <h2>已背单词</h2>
+    <aside id="sidebar" class="side-card">
+      <h2>🌟 已背单词</h2>
       <ul id="learned-list"></ul>
     </aside>
 
     <main id="game-panel">
-      <div id="monster">
-        <div id="score">⭐ Score: 0</div>
-        <div id="combo">🔥 Combo: 0</div>
-        <div id="current-word">facilitate</div>
-        <div id="meaning">促进；使容易</div>
-      </div>
+      <section id="monster"></section>
 
-      <input type="text" placeholder="Type the word here">
+      <input type="text" placeholder="输入单词，攻击怪兽！">
 
       <div id="tools">
         <textarea id="word-import" placeholder="输入单词，必须使用格式：
@@ -41,8 +49,8 @@ evidence,n.,证据"></textarea>
       </div>
     </main>
 
-    <aside id="todo-sidebar">
-      <h2>待背单词</h2>
+    <aside id="todo-sidebar" class="side-card">
+      <h2>📚 待背单词</h2>
       <ul id="todo-list"></ul>
     </aside>
 

@@ -1,3 +1,9 @@
+function cleanWord(text) {
+  return text
+    .trim()
+    .replace(/^\s*\d+[\.\、\)]\s*/, "")
+    .replace(/\s+/g, " ");
+}
 const input = document.querySelector("input");
 const monster = document.getElementById("monster");
 const importBox = document.getElementById("word-import");
@@ -21,6 +27,14 @@ let currentMeaning = "";
 let currentIndex = 0;
 let score = 0;
 let combo = 0;
+let monsterHP = 100;
+
+const monsterColors = [
+  "#A8B8C8",
+  "#D8B4A0",
+  "#A8B5A2",
+  "#B8A9C9"
+];
 
 function showWord() {
   const unlearned = words.filter(item => {
@@ -36,8 +50,17 @@ function showWord() {
   currentIndex = 0;
 
   monster.innerHTML = `
-    <div id="score">⭐ Score: ${score}</div>
-    <div id="combo">🔥 Combo: ${combo}</div>
+    <div class="status-bar">
+      <div id="score">⭐ Score: ${score}</div>
+      <div id="combo">🔥 Combo: ${combo}</div>
+    </div>
+
+    <div class="monster-body">
+      <div class="eye left"></div>
+      <div class="eye right"></div>
+      <div class="mouth"></div>
+    </div>
+
     <div id="current-word">${currentWord}</div>
     <div id="meaning">${currentType} ${currentMeaning}</div>
   `;
@@ -101,7 +124,11 @@ importBtn.addEventListener("click", () => {
     return;
   }
 
-  const lines = text.split("\n");
+ const lines = text
+  .split("\n")
+  .map(line => line.trim())
+  .filter(line => line.includes(","))
+  .map(line => line.replace(/^\d+[\.\、\)]\s*/, ""));
   const newWords = [];
 
   for (let line of lines) {
@@ -112,7 +139,7 @@ importBtn.addEventListener("click", () => {
       return;
     }
 
-    const word = parts[0].trim();
+    const word = cleanWord(parts[0]);
     const type = parts[1].trim();
     const meaning = parts[2].trim();
 
@@ -125,7 +152,10 @@ importBtn.addEventListener("click", () => {
   }
 
   words = words.concat(newWords);
-
+words = words.map(item => ({
+  ...item,
+  word: cleanWord(item.word)
+}));
   alert("导入成功！");
   importBox.value = "";
 
@@ -163,12 +193,24 @@ function renderLearnedList() {
 function renderTodoList() {
   todoList.innerHTML = "";
 
-  words.forEach(item => {
+  words.forEach((item, index) => {
     const isLearned = learnedWords.some(learned => learned.word === item.word);
 
     if (!isLearned) {
       const li = document.createElement("li");
-      li.textContent = `${item.word} - ${item.type} ${item.meaning}`;
+
+      li.innerHTML = `
+        <div class="word-info">
+          <strong>${index + 1}. ${item.word}</strong>
+          <span>${item.type} ${item.meaning}</span>
+        </div>
+
+        <div class="word-actions">
+          <button class="small-btn edit-btn" onclick="editWord(${index})">修改</button>
+          <button class="small-btn delete-btn" onclick="deleteWord(${index})">删除</button>
+        </div>
+      `;
+
       todoList.appendChild(li);
     }
   });
